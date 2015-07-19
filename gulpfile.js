@@ -1,11 +1,14 @@
 var gulp = require("gulp");
 var babel = require("gulp-babel");
+var plumber = require("gulp-plumber");
 
 var DIST_FOLDER = "dist";
 
 gulp.task("process-client-scripts", function () {
   return gulp.src(["src/**/*.js", "!src/app.js"])
-      .pipe(babel({modules: "amd", optional: ["es7.classProperties"], blacklist: ["useStrict"]}))
+      .pipe(plumber())
+        .pipe(babel({modules: "amd", optional: ["es7.classProperties"], blacklist: ["useStrict"]}))
+      .pipe(plumber.stop())
       .pipe(gulp.dest(DIST_FOLDER));
 });
 
@@ -23,7 +26,9 @@ gulp.task("process-vendor-scripts", function() {
 
 gulp.task("process-server-scripts", function() {
   return gulp.src(["src/app.js"])
-      .pipe(babel({optional: ["es7.classProperties"]}))
+      .pipe(plumber())
+        .pipe(babel({optional: ["es7.classProperties"]}))
+      .pipe(plumber.stop())
       .pipe(gulp.dest(DIST_FOLDER));
 });
 

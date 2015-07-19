@@ -11,7 +11,9 @@
     "requirejs": "^2.1.19",
     "reflux": "^0.2.10"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-plumber": "^1.0.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

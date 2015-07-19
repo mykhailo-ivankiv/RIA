@@ -29,20 +29,20 @@ var require = {
 
 function render (url, user, preferences) {
 
-  return Promise.resolve( `
+  return Layout.requireComponents()
+      .then (() => `
         <!doctype html>
         <html lang="en">
 
         <head>
           <meta charSet="UTF-8"/>
-          <title>Rove.me</title>
+          <title>RIA</title>
         </head>
 
-        <body>${React.renderToString(<Layout route="/"/>)}</body>
+        <body>${React.renderToString(<Layout/>)}</body>
         <script>${requirejsConfig}</script>
         <script src="/vendors/require.js"></script>
         <script>requirejs(["app.frontend"])</script>
-
         </html>
       `);
 };

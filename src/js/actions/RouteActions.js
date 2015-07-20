@@ -1,4 +1,5 @@
 import Reflux from "reflux";
+import {System} from "utils/helpers";
 
 var RouteActions = Reflux.createActions({
   "goTo": {asyncResult: true},
@@ -12,15 +13,16 @@ if (typeof  window !== "undefined") { //For browsers only
 }
 
 RouteActions.goTo.listen (function (route) {
-  requirejs("components/Layout",
-      (Layout) => Layout
-          .requireComponents(route)
-          .then(this.completed)
-          .catch(this.failed)
+  System.load("components/Layout")
+    .then(Layout => {
+        return Layout
+            .requireComponents(route)
+            .then(() => route)
+            .then(this.completed)
+            .catch(this.failed)
 
-  )
-
-  console.log(route);
+      }
+    );
 });
 
 export default RouteActions;

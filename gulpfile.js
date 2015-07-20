@@ -1,8 +1,25 @@
 var gulp = require("gulp");
 var babel = require("gulp-babel");
 var plumber = require("gulp-plumber");
+var sass = require('gulp-sass');
+
+// For CSS
+var autoprefixer = require("gulp-autoprefixer");
 
 var DIST_FOLDER = "dist";
+
+gulp.task("process-style", function () {
+  return gulp.src(["src/**/*.scss"])
+      .pipe(plumber())
+
+        .pipe(sass())
+        .pipe(autoprefixer({
+          browsers: ["last 2 versions"],
+          cascade: false
+        }))
+      .pipe(plumber.stop())
+      .pipe(gulp.dest(DIST_FOLDER))
+});
 
 gulp.task("process-client-scripts", function () {
   return gulp.src(["src/**/*.js", "!src/app.js"])
@@ -19,7 +36,8 @@ gulp.task("process-vendor-scripts", function() {
     "node_modules/react/dist/react.js",
     "node_modules/react/dist/react-with-addons.js",
     "node_modules/whatwg-fetch/fetch.js",
-    "node_modules/requirejs/require.js"
+    "node_modules/requirejs/require.js",
+    "node_modules/immutable/dist/immutable.min.js"
   ])
   .pipe(gulp.dest(DIST_FOLDER + "/vendors"));
 });
@@ -37,6 +55,7 @@ gulp.task("process-scripts", ["process-vendor-scripts", "process-client-scripts"
 
 gulp.task("default", ["process-scripts"]);
 
-gulp.task("watch",["process-scripts"], function() {
+gulp.task("watch",["process-scripts", "process-style"], function() {
   gulp.watch("src/**/*.js", ["process-client-scripts", "process-server-scripts"]);
+  gulp.watch("src/**/*.scss", ["process-style"]);
 });

@@ -1,5 +1,6 @@
 import React from "react/addons";
 import BEM from "utils/BEM";
+import Link from "components/Link";
 
 var b = BEM.b("Component1");
 

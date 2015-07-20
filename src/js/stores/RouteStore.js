@@ -27,7 +27,7 @@ var RouteStore = Reflux.createStore({
 
   listenables: [RouteActions],
 
-  onGoTo (url, historyNavigation) {
+  onGoToCompleted (url, historyNavigation) {
     url = typeof url !== "string"
             ? this.convertToURL(url)
             : url;
@@ -58,7 +58,7 @@ var RouteStore = Reflux.createStore({
   },
 
   getRoute () {
-    return parseURL (_currentPath);
+    return parseURL(_currentPath);
   },
 
   getPrevRoute () {

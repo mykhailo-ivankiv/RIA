@@ -1,4 +1,4 @@
-var load = (path) => new Promise ((resolve, reject) =>requirejs([path], resolve));
+var load = (path) => new Promise ((resolve, reject) => requirejs([path], resolve));
 
 export var System = {load};
 

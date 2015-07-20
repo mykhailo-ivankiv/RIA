@@ -1,10 +1,10 @@
 var load = (path) => new Promise ((resolve, reject) => requirejs([path], resolve));
 
-var attachComponent = (rootcomponent, path, name) => load(path)
+var attachComponent = (rootcomponent, path, name, route) => load(path)
                         .then(component => {
                           rootcomponent.components[name] = component;
                           return component.requireComponents
-                              ? component.requireComponents()
+                              ? component.requireComponents(route)
                               : component;
                         })
 export var System = {load, attachComponent};

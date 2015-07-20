@@ -1,5 +1,6 @@
 import React from "react/addons";
 import BEM from "utils/BEM";
+import RouteStore from "stores/RouteStore";
 
 import {System} from "utils/helpers";
 
@@ -9,11 +10,13 @@ class Text extends React.Component {
   static components = {}
 
   static requireComponents (route) {
-    var components = [];
 
-    components.push(
-        System.attachComponent(Text, "components/UserDescription", "UserDescription")
-    );
+    var components = [];
+    if (route.paths[1]) {
+      components.push(
+          System.attachComponent(Text, "components/UserDescription", "UserDescription", route)
+      );
+    }
 
 
     return Promise.all(components);
@@ -22,12 +25,21 @@ class Text extends React.Component {
 
   constructor (props) {
     super();
-    this.state = {};
+    this.state = {
+      route: RouteStore.getRoute(),
+      content : [
+          `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus consequuntur cum cupiditate ducimus, eius ex harum ipsa ipsam labore laudantium, maiores nisi obcaecati sint soluta unde vitae voluptatem! Fugiat, reiciendis!`
+      ]
+    };
+  }
+
+  handleRouteChange() {
+    this.setState({route: RouteStore.getRoute()})
   }
 
   componentWillMount () {
     this.unsubscribeList = [
-
+      RouteStore.listen(this.handleRouteChange.bind(this))
     ];
   }
 
@@ -39,14 +51,15 @@ class Text extends React.Component {
 
   render () {
     let {UserDescription} = Text.components;
-
+    let {content, route} = this.state;
     return (
       <div className={b()}>
-        <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus consequuntur cum cupiditate ducimus, eius ex harum ipsa ipsam labore laudantium, maiores nisi obcaecati sint soluta unde vitae voluptatem! Fugiat, reiciendis!
-        </p>
+        <p>{content[0]}</p>
+        {route.paths[1]
+            ? <UserDescription/>
+            : "No users detected"
+        }
 
-        <UserDescription/>
       </div>
     );
   }

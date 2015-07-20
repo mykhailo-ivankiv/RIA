@@ -10,17 +10,18 @@ var b = BEM.b("Layout");
 
 class Layout extends React.Component {
   static components = {}
-  static requireComponents (route) {
+  static requireComponents (route) { //TODO: maybe preRequired will be better name
     var components = [];
 
-    if (route === "/text" || route.pathStr === "/text") {
+    console.log(route);
 
+    if (route.paths[0] === "text") {
       components.push(
-          System.attachComponent(Layout, "components/Text", "Text")
+          System.attachComponent(Layout, "components/Text", "Text", route)
       )
     } else {
       components.push(
-          System.attachComponent(Layout, "components/ImageGallery", "ImageGallery")
+          System.attachComponent(Layout, "components/ImageGallery", "ImageGallery", route)
       );
     }
 
@@ -45,7 +46,6 @@ class Layout extends React.Component {
   componentDidMount () {}
 
   handleRouteChange () {
-    console.log("handleRouteChange", RouteStore.getRoute());
     this.setState({route: RouteStore.getRoute()})
   }
 
@@ -85,12 +85,22 @@ class Layout extends React.Component {
         </p>
 
         <div>
-          <Link className = {b("link", {active: route.pathStr === "/"})} href="/">Images</Link>
-          <Link className = {b("link", {active: route.pathStr === "/text"})} href="/text">Text</Link>
+          <Link
+              href="/"
+              className = {b("link", {active: route.pathStr === "/"})}
+              >Images</Link>
+          <Link
+              href="/text"
+              className = {b("link", {active: route.paths[0] === "text" && !route.paths[1] })}
+              >Text</Link>
+          <Link
+              href="/text/1"
+              className = {b("link", {active: route.paths[0] === "text" && route.paths[1] })}
+              >Text + User</Link>
         </div>
 
         <div>
-          {route.pathStr === "/text"
+          {route.paths[0] === "text"
               ? <Text/>
               : <ImageGallery/>
           }

@@ -1,5 +1,6 @@
 import React from "react/addons";
 import Layout from "components/Layout";
+import {parseURL} from "utils/helpers";
 
 import RouteStore from "stores/RouteStore";
 
@@ -30,9 +31,10 @@ var require = {
 };
 `;
 
-function render (url, user, preferences) {
+function render (url) {
+  let route = parseURL(url);
 
-  return Layout.requireComponents(url)
+  return Layout.requireComponents(route)
       .then (() => {
         RouteStore.setup(url);
         return `<!doctype html>

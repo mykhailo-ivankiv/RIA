@@ -1,0 +1,4 @@
+{
+  "author": true,
+  "content": "With React 0.14, we're continuing to let React mature and to make minor changes as the APIs continue to settle down. I'll talk only about the two largest changes in this blog post; when we publish the final release we'll be sure to update all of our documentation and include a full changelog."
+}

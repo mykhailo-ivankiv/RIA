@@ -1,5 +1,5 @@
 import Reflux from "reflux";
-import {System} from "utils/helpers";
+import {System, parseURL} from "utils/helpers";
 
 var RouteActions = Reflux.createActions({
   "goTo": {asyncResult: true},
@@ -12,7 +12,8 @@ if (typeof  window !== "undefined") { //For browsers only
   })
 }
 
-RouteActions.goTo.listen (function (route) {
+RouteActions.goTo.listen (function (url) {
+  let route = parseURL(url);
   System.load("components/Layout")
     .then(Layout => {
         return Layout

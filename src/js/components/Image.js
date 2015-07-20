@@ -1,10 +1,9 @@
 import React from "react/addons";
 import BEM from "utils/BEM";
-import Link from "components/Link";
 
-var b = BEM.b("Component1");
+var b = BEM.b("Image");
 
-class Component1 extends React.Component {
+class Image extends React.Component {
   constructor (props) {
     super();
     this.state = {};
@@ -24,10 +23,13 @@ class Component1 extends React.Component {
 
   render () {
     return (
-      <div className={b()}>Component1</div>
+        <figure className = {b()}>
+          <img src={this.props.src}/>
+          <figcaption>{this.props.src}</figcaption>
+        </figure>
     );
   }
 }
 
-export default Component1;
+export default Image;
 

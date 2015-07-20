@@ -11,26 +11,16 @@ var b = BEM.b("Layout");
 class Layout extends React.Component {
   static components = {}
   static requireComponents (route) {
-    console.log(route);
-
     var components = [];
 
-    if (route === "/component2" || route.pathStr === "/component2") {
-      components.push(System
-          .load("components/Component2")
-          .then(Component2 => {
-                console.log(Component2);
-                Layout.components["Component2"] = Component2;
-                return Component2;
-              })
+    if (route === "/text" || route.pathStr === "/text") {
+
+      components.push(
+          System.attachComponent(Layout, "components/Text", "Text")
       )
     } else {
-      components.push(System
-          .load("components/Component1")
-          .then(Component1 => {
-                Layout.components["Component1"] = Component1;
-                return Component1;
-              })
+      components.push(
+          System.attachComponent(Layout, "components/ImageGallery", "ImageGallery")
       );
     }
 
@@ -60,7 +50,7 @@ class Layout extends React.Component {
   }
 
   render () {
-    let {Component1, Component2} = Layout.components;
+    let {ImageGallery, Text} = Layout.components;
     let {route} = this.state;
 
     return <div className={b()}>
@@ -74,7 +64,17 @@ class Layout extends React.Component {
             <li>Isomorphic fetch</li>
             <li>Gulp</li>
           </ul>
+        </p>
 
+        <p>
+          Цей шаблон являється спробою вирішити наступні технічні проблеми.
+          <ol>
+            <li>Ліниве підвантаження модулів. В залежності від URL маршруту</li>
+            <li>
+              Поєднання асинхронного підвантаження даних із синхронним рендером React відображення.
+              (Складність полягає в ізоморфній архітерктурі.)
+            </li>
+          </ol>
         </p>
 
         <p>
@@ -84,16 +84,17 @@ class Layout extends React.Component {
           </dl>
         </p>
 
-        {route.pathStr === "/component2"
-          ? <div>
-              <Component2/>
-              <Link href="/">GoTo component 1</Link>
-            </div>
-          : <div>
-              <Component1/>
-              <Link href="/component2">GoTo component 2</Link>
-            </div>
-        }
+        <div>
+          <Link className = {b("link", {active: route.pathStr === "/"})} href="/">Images</Link>
+          <Link className = {b("link", {active: route.pathStr === "/text"})} href="/text">Text</Link>
+        </div>
+
+        <div>
+          {route.pathStr === "/text"
+              ? <Text/>
+              : <ImageGallery/>
+          }
+        </div>
       </div>;
   }
 }

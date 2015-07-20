@@ -1,9 +1,9 @@
 import React from "react/addons";
 import BEM from "utils/BEM";
 
-var b = BEM.b("Component2");
+var b = BEM.b("UserDescription");
 
-class Component2 extends React.Component {
+class UserDescription extends React.Component {
   constructor (props) {
     super();
     this.state = {};
@@ -23,10 +23,9 @@ class Component2 extends React.Component {
 
   render () {
     return (
-      <div className={b()}>Component2</div>
+      <div className={b()}>UserDescription</div>
     );
   }
 }
 
-export default Component2;
-
+export default UserDescription;

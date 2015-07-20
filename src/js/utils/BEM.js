@@ -1,5 +1,5 @@
 const ELEMENT_SEPARATOR = "__",
-      MODIFIER_SEPARATOR = "_";
+      MODIFIER_SEPARATOR = "--";
 
 function getBEMPAth(blockData) {
   var base = typeof (blockData.e) === "string"

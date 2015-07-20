@@ -3,6 +3,26 @@
 
   }
 
+  &__link {
+    margin: 5px;
+
+    &--active {font-weight: bold;}
+  }
+}
+
+.ImageGallery {
+  img {
+    max-width: 100%;
+  }
+}
+
+.Image {
+  margin: 10px;
+  border: 3px solid white;
+  box-shadow: 0px 0px 3px 0px black;
+  text-align: center;
+  width: 400px;
+  display: inline-block;
 }
 
 body {

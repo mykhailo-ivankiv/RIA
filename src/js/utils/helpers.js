@@ -1,6 +1,13 @@
 var load = (path) => new Promise ((resolve, reject) => requirejs([path], resolve));
 
-export var System = {load};
+var attachComponent = (rootcomponent, path, name) => load(path)
+                        .then(component => {
+                          rootcomponent.components[name] = component;
+                          return component.requireComponents
+                              ? component.requireComponents()
+                              : component;
+                        })
+export var System = {load, attachComponent};
 
 
 export function parseURL (url) {

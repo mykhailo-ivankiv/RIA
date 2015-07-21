@@ -33,10 +33,12 @@ var require = {
 
 function render (url) {
   let route = parseURL(url);
+  let cacheObj = {};
 
-  return Layout.requireComponents(route)
+  return Layout.requireComponents(route, cacheObj)
       .then (() => {
         RouteStore.setup(url);
+
         return `<!doctype html>
           <html lang="en">
 
@@ -48,6 +50,9 @@ function render (url) {
 
             <body>${React.renderToString(<Layout/>)}</body>
             <script>${requirejsConfig}</script>
+            <script>
+              var cache = ${JSON.stringify(cacheObj)}
+            </script>
             <script src="/vendors/require.js"></script>
             <script>requirejs(["app.frontend"])</script>
           </html>

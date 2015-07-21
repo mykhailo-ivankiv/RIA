@@ -8,6 +8,11 @@ var autoprefixer = require("gulp-autoprefixer");
 
 var DIST_FOLDER = "dist";
 
+gulp.task("process-mock", function () {
+  return gulp.src(["src/mock/**/*.json"])
+      .pipe(gulp.dest(DIST_FOLDER + "/mock"))
+});
+
 gulp.task("process-style", function () {
   return gulp.src(["src/**/*.scss"])
       .pipe(plumber())
@@ -55,7 +60,8 @@ gulp.task("process-scripts", ["process-vendor-scripts", "process-client-scripts"
 
 gulp.task("default", ["process-scripts"]);
 
-gulp.task("watch",["process-scripts", "process-style"], function() {
+gulp.task("watch",["process-scripts", "process-style", "process-mock"], function() {
   gulp.watch("src/**/*.js", ["process-client-scripts", "process-server-scripts"]);
   gulp.watch("src/**/*.scss", ["process-style"]);
+  gulp.watch("src/mock/**/*.json", ["process-mock"]);
 });

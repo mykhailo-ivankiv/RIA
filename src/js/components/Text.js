@@ -1,6 +1,10 @@
 import React from "react/addons";
 import BEM from "utils/BEM";
+
 import RouteStore from "stores/RouteStore";
+import ArticleStore from "stores/ArticleStore";
+
+import fetch from "isomorphic-fetch";
 
 import {System} from "utils/helpers";
 
@@ -9,32 +13,36 @@ var b = BEM.b("Text");
 class Text extends React.Component {
   static components = {}
 
-  static requireComponents (route) {
-
-    var components = [];
-    if (route.paths[1]) {
-      components.push(
-          System.attachComponent(Text, "components/UserDescription", "UserDescription", route)
-      );
-    }
-
-
-    return Promise.all(components);
+  static requireComponents (route, cacheObj) {
+    return ArticleStore
+        .getArticle(route.paths[1] ? 2 : 1, true)
+        .then(data => {
+          return data.author
+              ? System.attachComponent(Text, "components/UserDescription", "UserDescription", route, cacheObj)
+                .then(() => data)
+              : data
+        });
   }
-
 
   constructor (props) {
     super();
+    var route = RouteStore.getRoute();
+
     this.state = {
-      route: RouteStore.getRoute(),
-      content : [
-          `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus consequuntur cum cupiditate ducimus, eius ex harum ipsa ipsam labore laudantium, maiores nisi obcaecati sint soluta unde vitae voluptatem! Fugiat, reiciendis!`
-      ]
+      route,
+      content : ArticleStore.getArticle(route.paths[1] ? 2 : 1).content,
+      user: ArticleStore.getArticle(route.paths[1] ? 2 : 1).author
     };
   }
 
   handleRouteChange() {
-    this.setState({route: RouteStore.getRoute()})
+    var route = RouteStore.getRoute();
+
+    this.setState({
+      route,
+      content : ArticleStore.getArticle(route.paths[1] ? 2 : 1).content,
+      user: ArticleStore.getArticle(route.paths[1] ? 2 : 1).author
+    })
   }
 
   componentWillMount () {
@@ -51,11 +59,11 @@ class Text extends React.Component {
 
   render () {
     let {UserDescription} = Text.components;
-    let {content, route} = this.state;
+    let {user, content, route} = this.state;
     return (
       <div className={b()}>
-        <p>{content[0]}</p>
-        {route.paths[1]
+        <p>{content}</p>
+        {user
             ? <UserDescription/>
             : "No users detected"
         }

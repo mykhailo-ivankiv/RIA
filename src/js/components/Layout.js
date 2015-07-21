@@ -10,18 +10,16 @@ var b = BEM.b("Layout");
 
 class Layout extends React.Component {
   static components = {}
-  static requireComponents (route) { //TODO: maybe preRequired will be better name
+  static requireComponents (route, cacheObj) { //TODO: maybe preRequired will be better name
     var components = [];
-
-    console.log(route);
 
     if (route.paths[0] === "text") {
       components.push(
-          System.attachComponent(Layout, "components/Text", "Text", route)
+          System.attachComponent(Layout, "components/Text", "Text", route, cacheObj)
       )
     } else {
       components.push(
-          System.attachComponent(Layout, "components/ImageGallery", "ImageGallery", route)
+          System.attachComponent(Layout, "components/ImageGallery", "ImageGallery", route, cacheObj)
       );
     }
 

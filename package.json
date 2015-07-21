@@ -12,7 +12,8 @@
     "isomorphic-fetch": "^2.1.1",
     "react": "^0.13.3",
     "reflux": "^0.2.10",
-    "requirejs": "^2.1.19"
+    "requirejs": "^2.1.19",
+    "whatwg-fetch": "^0.9.0"
   },
   "devDependencies": {
     "gulp-plumber": "^1.0.1",

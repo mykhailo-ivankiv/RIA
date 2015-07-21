@@ -58,7 +58,6 @@ var RouteStore = Reflux.createStore({
   },
 
   getRoute () {
-    console.log(_currentPath, "getRoute");
     return parseURL(_currentPath);
   },
 

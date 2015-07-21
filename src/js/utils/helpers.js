@@ -1,14 +1,13 @@
 var load = (path) => new Promise ((resolve, reject) => requirejs([path], resolve));
 
-var attachComponent = (rootcomponent, path, name, route) => load(path)
+var attachComponent = (rootcomponent, path, name, route, cacheObj) => load(path)
                         .then(component => {
                           rootcomponent.components[name] = component;
                           return component.requireComponents
-                              ? component.requireComponents(route)
+                              ? component.requireComponents(route, cacheObj)
                               : component;
                         })
 export var System = {load, attachComponent};
-
 
 export function parseURL (url) {
   var pathStr = url.match(/^[\-\w\/]+(\?)?/)[0];

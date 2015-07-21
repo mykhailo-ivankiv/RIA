@@ -15,7 +15,7 @@ class Text extends React.Component {
 
   static requireComponents (route, cacheObj) {
     return ArticleStore
-        .getArticle(route.paths[1] ? 2 : 1, true)
+        .getArticle(route.paths[1] ? 2 : 1, true, cacheObj)
         .then(data => {
           return data.author
               ? System.attachComponent(Text, "components/UserDescription", "UserDescription", route, cacheObj)
@@ -26,22 +26,24 @@ class Text extends React.Component {
 
   constructor (props) {
     super();
-    var route = RouteStore.getRoute();
+    let route = RouteStore.getRoute();
+    let article = ArticleStore.getArticle(route.paths[1] ? 2 : 1);
 
     this.state = {
       route,
-      content : ArticleStore.getArticle(route.paths[1] ? 2 : 1).content,
-      user: ArticleStore.getArticle(route.paths[1] ? 2 : 1).author
+      content: article.content,
+      user: article.author
     };
   }
 
   handleRouteChange() {
     var route = RouteStore.getRoute();
+    let article = ArticleStore.getArticle(route.paths[1] ? 2 : 1);
 
     this.setState({
       route,
-      content : ArticleStore.getArticle(route.paths[1] ? 2 : 1).content,
-      user: ArticleStore.getArticle(route.paths[1] ? 2 : 1).author
+      content: article.content,
+      user: article.author
     })
   }
 

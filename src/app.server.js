@@ -3,10 +3,10 @@ import Layout from "components/Layout";
 import {parseURL} from "utils/helpers";
 
 import RouteStore from "stores/RouteStore";
+import {setupCache, getCache} from "stores/cache"
 
 var requirejsConfig = `
 var require = {
-  waitSeconds: 0, //http://stackoverflow.com/questions/20736547/ripple-uncaught-error-load-timeout-for-modules-app-http-requirejs-org-docs
   shim: {
     "isomorphic-fetch"     : { exports : 'fetch'},
   },
@@ -39,6 +39,8 @@ function render (url) {
       .then (() => {
         RouteStore.setup(url);
 
+        setupCache(cacheObj);
+
         return `<!doctype html>
           <html lang="en">
 
@@ -46,13 +48,15 @@ function render (url) {
             <meta charSet="UTF-8"/>
             <title>RIA</title>
             <link type="text/css" rel="stylesheet" href="/style/main.css"/>
+            <script>
+              var cache = ${JSON.stringify(cacheObj)};
+              console.log(cache, ${JSON.stringify(cacheObj)}, "server.render");
+            </script>
             </head>
 
             <body>${React.renderToString(<Layout/>)}</body>
             <script>${requirejsConfig}</script>
-            <script>
-              var cache = ${JSON.stringify(cacheObj)}
-            </script>
+
             <script src="/vendors/require.js"></script>
             <script>requirejs(["app.frontend"])</script>
           </html>

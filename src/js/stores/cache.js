@@ -1,3 +1,8 @@
 var cacheOjb =  typeof cache !== "undefined" ? cache : {};
 
-export default cacheOjb;
+export var setupCache = cache => {
+
+  cacheOjb = cache;
+}
+
+export var getCache = () => cacheOjb;

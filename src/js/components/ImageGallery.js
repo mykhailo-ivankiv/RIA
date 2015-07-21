@@ -6,7 +6,7 @@ import Image from "components/Image";
 
 var b = BEM.b("ImageGallery");
 
-class Component1 extends React.Component {
+class ImageGallery extends React.Component {
   constructor (props) {
     super();
     this.state = {
@@ -17,10 +17,10 @@ class Component1 extends React.Component {
           "http://lorempixel.com/g/400/200/nature/4",
           "http://lorempixel.com/g/400/200/nature/5",
           "http://lorempixel.com/g/400/200/nature/6",
-          "http://lorempixel.com/g/400/200/nature/6",
           "http://lorempixel.com/g/400/200/nature/7",
           "http://lorempixel.com/g/400/200/nature/8",
-          "http://lorempixel.com/g/400/200/nature/9"
+          "http://lorempixel.com/g/400/200/nature/9",
+          "http://lorempixel.com/g/400/200/nature/10"
       ]
     };
   }
@@ -43,12 +43,12 @@ class Component1 extends React.Component {
       <div className={b()}>
         <h3>Image Gallery</h3>
         <div>
-          {photos.map(photo => <Image src={photo}/>)}
+          {photos.map(photo => <Image key={photo} src={photo}/>)}
         </div>
       </div>
     );
   }
 }
 
-export default Component1;
+export default ImageGallery;
 

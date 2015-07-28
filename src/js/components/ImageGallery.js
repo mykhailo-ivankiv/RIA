@@ -14,13 +14,7 @@ class ImageGallery extends React.Component {
           "http://lorempixel.com/g/400/200/nature/1",
           "http://lorempixel.com/g/400/200/nature/2",
           "http://lorempixel.com/g/400/200/nature/3",
-          "http://lorempixel.com/g/400/200/nature/4",
-          "http://lorempixel.com/g/400/200/nature/5",
-          "http://lorempixel.com/g/400/200/nature/6",
-          "http://lorempixel.com/g/400/200/nature/7",
-          "http://lorempixel.com/g/400/200/nature/8",
-          "http://lorempixel.com/g/400/200/nature/9",
-          "http://lorempixel.com/g/400/200/nature/10"
+          "http://lorempixel.com/g/400/200/nature/4"
       ]
     };
   }

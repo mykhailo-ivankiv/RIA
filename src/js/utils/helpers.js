@@ -7,6 +7,7 @@ var attachComponent = (rootcomponent, path, name, route, cacheObj) => load(path)
                               ? component.requireComponents(route, cacheObj)
                               : component;
                         })
+
 export var System = {load, attachComponent};
 
 export function parseURL (url) {

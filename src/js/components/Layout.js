@@ -14,12 +14,12 @@ class Layout extends React.Component {
     var components = [];
 
     if (route.paths[0] === "text") {
+    } else {
       components.push(
           System.attachComponent(Layout, "components/Text", "Text", route, cacheObj)
       )
-    } else {
       components.push(
-          System.attachComponent(Layout, "components/ImageGallery", "ImageGallery", route, cacheObj)
+        System.attachComponent(Layout, "components/ImageGallery", "ImageGallery", route, cacheObj)
       );
     }
 

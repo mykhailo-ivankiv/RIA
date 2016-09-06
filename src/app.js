@@ -22,13 +22,13 @@ var requirejs = require('requirejs')
 requirejs(["../dist/app.server"], function(renderPage) {
   app.get("/*", function (req, res, next) {
 
-  renderPage(req.originalUrl)
-      .then(function(HTML) {
-        return res.send(HTML);
-      })
-      .catch(function(err) {
-        return next(err);
-      });
+    renderPage(req.originalUrl)
+        .then(function(HTML) {
+          return res.send(HTML);
+        })
+        .catch(function(err) {
+          return next(err);
+        });
 
   });
 });

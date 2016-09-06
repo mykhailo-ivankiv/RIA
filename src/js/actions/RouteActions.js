@@ -21,7 +21,6 @@ RouteActions.goTo.listen (function (url) {
             .then(() => route)
             .then(this.completed)
             .catch(this.failed)
-
       }
     );
 });

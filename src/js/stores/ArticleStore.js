@@ -7,7 +7,6 @@ import {getCache} from "stores/cache";
 
 const API = "https://roveme.dev/api";
 
-
 var ArticleStorage = Reflux.createStore({
   getArticle(index, asynchFlag, cacheObj = getCache()){
 
